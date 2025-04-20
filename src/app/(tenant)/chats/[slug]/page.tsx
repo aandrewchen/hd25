@@ -16,7 +16,7 @@ export default function Chat() {
   const recipient = useQuery(api.user.getUser, { userId: recipientId })!;
   const messages = useQuery(api.chat.getMessages, {
     userId: user?._id,
-    recipientId,
+    recipientId: recipientId,
   });
   const sendMessage = useMutation(api.chat.sendMessage);
   const messagesEndRef = useRef<HTMLDivElement>(null);

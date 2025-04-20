@@ -86,6 +86,29 @@ export const getChats = query({
         )
       )
       .collect();
-    return chats;
+
+    // Enhance chats with information about the other user
+    const chatsWithUsers = await Promise.all(
+      chats.map(async (chat) => {
+        // Determine which user is the other person in the chat
+        const otherUserId =
+          chat.user1 === args.userId ? chat.user2 : chat.user1;
+
+        // Get the other user's information
+        const otherUser = await ctx.db.get(otherUserId);
+
+        // Return the chat with the other user's information
+        return {
+          ...chat,
+          otherUser: {
+            _id: otherUser?._id,
+            name: otherUser?.name,
+            image: otherUser?.image,
+          },
+        };
+      })
+    );
+
+    return chatsWithUsers;
   },
 });
