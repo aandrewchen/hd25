@@ -1,6 +1,6 @@
 "use client";
 
-import { useQuery, useMutation } from "convex/react";
+import { useQuery, useAction } from "convex/react";
 import { api } from "../../../../../convex/_generated/api";
 import { useEffect, useRef } from "react";
 import { useParams } from "next/navigation";
@@ -18,7 +18,7 @@ export default function Chat() {
     userId: user?._id,
     recipientId: recipientId,
   });
-  const sendMessage = useMutation(api.chat.sendMessage);
+  const sendMessage = useAction(api.chat.sendMessage);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -30,7 +30,11 @@ export default function Chat() {
   return (
     <div className="flex flex-col h-screen">
       <ChatHeader recipient={recipient} />
-      <MessageList messages={messages || []} currentUserId={user._id} />
+      <MessageList
+        messages={messages || []}
+        currentUserId={user._id}
+        recipientId={recipientId}
+      />
       <div ref={messagesEndRef} />
       <MessageInput
         onSendMessage={async (message) => {

@@ -1,17 +1,87 @@
-import { query, mutation } from "./_generated/server";
+import { query, mutation, action } from "./_generated/server";
 import { v } from "convex/values";
+import OpenAI from "openai";
+import { api } from "./_generated/api";
 
-export const sendMessage = mutation({
+const openAIclient = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+
+export const translateMessage = action({
+  args: {
+    text: v.string(),
+    targetLanguage: v.string(),
+  },
+  handler: async (ctx, args) => {
+    try {
+      const response = await openAIclient.chat.completions.create({
+        model: "gpt-4.1",
+        messages: [
+          {
+            role: "system",
+            content: `You are a translator. Translate the following text to ${args.targetLanguage}. If you cannot figure out the translation, please return 'Please speak into the microphone again.' Please do not return random text that is not the translation.`,
+          },
+          {
+            role: "user",
+            content: args.text,
+          },
+        ],
+      });
+
+      return response.choices[0].message.content || undefined;
+    } catch (error) {
+      console.error("Translation error:", error);
+      return undefined;
+    }
+  },
+});
+
+export const sendMessage = action({
   args: {
     sender: v.id("users"),
     recipient: v.id("users"),
     body: v.string(),
   },
   handler: async (ctx, args) => {
+    // Get recipient's language preference
+    const recipientInfo = await ctx.runQuery(api.user.getUser, {
+      userId: args.recipient,
+    });
+
+    let translation: string | undefined = undefined;
+    // Call the translation function
+    const translatedText = await ctx.runAction(api.chat.translateMessage, {
+      text: args.body,
+      targetLanguage: recipientInfo?.language || "eng",
+    });
+
+    if (translatedText) {
+      translation = translatedText;
+    }
+
+    // Store the message with translation
+    await ctx.runMutation(api.chat.storeMessage, {
+      sender: args.sender,
+      recipient: args.recipient,
+      body: args.body,
+      translation: translation,
+    });
+  },
+});
+
+export const storeMessage = mutation({
+  args: {
+    sender: v.id("users"),
+    recipient: v.id("users"),
+    body: v.string(),
+    translation: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
     await ctx.db.insert("messages", {
       sender: args.sender,
       recipient: args.recipient,
       body: args.body,
+      translation: args.translation,
     });
 
     const existingChat = await ctx.db
@@ -110,5 +180,61 @@ export const getChats = query({
     );
 
     return chatsWithUsers;
+  },
+});
+
+export const translateExistingMessage = mutation({
+  args: {
+    messageId: v.id("messages"),
+    recipientId: v.id("users"),
+  },
+  handler: async (ctx, args) => {
+    // Get the message
+    const message = await ctx.db.get(args.messageId);
+    if (!message) {
+      throw new Error("Message not found");
+    }
+
+    // Get recipient's language preference from userInfo table
+    const userInfo = await ctx.db
+      .query("userInfo")
+      .filter((q) => q.eq(q.field("userId"), args.recipientId))
+      .first();
+
+    if (!userInfo) {
+      return; // No userInfo found, no translation needed
+    }
+
+    // Check if recipient has a language preference
+    if (userInfo.language === "eng") {
+      return; // No translation needed
+    }
+
+    // Use OpenAI directly for translation
+    try {
+      const response = await openAIclient.chat.completions.create({
+        model: "gpt-3.5-turbo",
+        messages: [
+          {
+            role: "system",
+            content: `You are a translator. Translate the following text to ${userInfo.language}. If you cannot figure out the translation, please return 'Please speak into the microphone again.' Please do not return random text that is not the translation.`,
+          },
+          {
+            role: "user",
+            content: message.body,
+          },
+        ],
+      });
+
+      const translatedText = response.choices[0].message.content;
+      if (translatedText) {
+        // Update the message with the translation
+        await ctx.db.patch(args.messageId, {
+          translation: translatedText,
+        });
+      }
+    } catch (error) {
+      console.error("Translation error:", error);
+    }
   },
 });

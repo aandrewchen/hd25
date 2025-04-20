@@ -28,7 +28,7 @@ export default function MessageInput({ onSendMessage }: MessageInputProps) {
         />
         <button
           type="submit"
-          className="bg-blue-500 text-white rounded-full px-6 py-2 hover:bg-blue-600 outline-none"
+          className="bg-[#635BFF] text-white rounded-full px-6 py-2 outline-none"
         >
           Send
         </button>

@@ -62,7 +62,7 @@ export default function MicrophoneDrawer() {
       const response = await openAIclient.responses.create({
         model: "gpt-4.1",
         instructions:
-          "Please translate the following text to English. Remove any extra information or noise that might have been in the transcription and just provide the translation. If you cannot figure out the translation, please return, 'Please speak into the microphone again.' Please do not return random text that is not the translation.",
+          "You are a translator. Please translate the following text to English. Remove any extra information or noise that might have been in the transcription and just provide the translation. If you cannot figure out the translation, please return, 'Please speak into the microphone again.' Please do not return random text that is not the translation.",
         input: result.text,
       });
 
@@ -99,7 +99,7 @@ export default function MicrophoneDrawer() {
       const response = await openAIclient.responses.create({
         model: "gpt-4.1",
         instructions:
-          "Please translate the following text to Chinese. Remove any extra information or noise that might have been in the transcription and just provide the translation. If you cannot figure out the translation, please return, 'Please speak into the microphone again.' Please do not return random text that is not the translation.",
+          "You are a translator. Please translate the following text to Chinese. Remove any extra information or noise that might have been in the transcription and just provide the translation. If you cannot figure out the translation, please return, 'Please speak into the microphone again.' Please do not return random text that is not the translation.",
         input: result.text,
       });
 
