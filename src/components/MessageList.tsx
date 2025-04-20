@@ -17,7 +17,7 @@ export default function MessageList({
           className={`flex ${message.sender === currentUserId ? "justify-end" : "justify-start"}`}
         >
           <div
-            className={`max-w-[70%] rounded-[24px] px-4 py-2 ${
+            className={`max-w-[70%] rounded-[24px] px-4 py-2 text-wrap ${
               message.sender === currentUserId
                 ? "bg-blue-500 text-white"
                 : "bg-gray-200 text-gray-900"
