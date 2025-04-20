@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import MicrophoneDrawer from "./MicrophoneDrawer";
+import Link from "next/link";
 
 export default function NavBar() {
   const pathname = usePathname();
@@ -13,7 +14,7 @@ export default function NavBar() {
       <div className="z-0 bottom-0 bg-white border-t border-[#E5E7EB] pt-[0.65rem] px-[0.65rem] pb-[1.9rem]">
         <div className="flex justify-between">
           <div className="flex gap-10 items-center">
-            <a className="flex flex-col gap-1" href="/">
+            <Link className="flex flex-col gap-1" href="/">
               {pathname.endsWith("/") ? (
                 <img src="/NavBar/HomeSelected.svg" alt="Home" />
               ) : (
@@ -29,9 +30,9 @@ export default function NavBar() {
               >
                 Home
               </p>
-            </a>
+            </Link>
 
-            <a className="flex flex-col gap-1" href="/chats">
+            <Link className="flex flex-col gap-1" href="/chats">
               {pathname.endsWith("/chats") ? (
                 <img src="/NavBar/ChatsSelected.svg" alt="Chats" />
               ) : (
@@ -47,11 +48,11 @@ export default function NavBar() {
               >
                 Chats
               </p>
-            </a>
+            </Link>
           </div>
 
           <div className="flex gap-10 items-center">
-            <a className="flex flex-col gap-1" href="/inbox">
+            <Link className="flex flex-col gap-1" href="/inbox">
               {pathname.endsWith("/inbox") ? (
                 <img src="/NavBar/InboxSelected.svg" alt="Inbox" />
               ) : (
@@ -67,9 +68,9 @@ export default function NavBar() {
               >
                 Inbox
               </p>
-            </a>
+            </Link>
 
-            <a className="flex flex-col gap-1" href="/profile">
+            <Link className="flex flex-col gap-1" href="/profile">
               {pathname.endsWith("/profile") ? (
                 <img src="/NavBar/Profile.svg" alt="Profile" />
               ) : (
@@ -85,7 +86,7 @@ export default function NavBar() {
               >
                 Profile
               </p>
-            </a>
+            </Link>
           </div>
         </div>
       </div>
