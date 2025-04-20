@@ -127,7 +127,7 @@ export default function MicrophoneDrawer() {
       console.log("Microphone access granted, creating MediaRecorder...");
 
       const mediaRecorder = new MediaRecorder(stream, {
-        mimeType: "audio/webm;codecs=opus",
+        mimeType: "audio/mp4",
       });
       mediaRecorderRef.current = mediaRecorder;
       audioChunksRef.current = [];
@@ -225,7 +225,7 @@ export default function MicrophoneDrawer() {
       console.log("Microphone access granted, creating MediaRecorder...");
 
       const mediaRecorder = new MediaRecorder(stream, {
-        mimeType: "audio/webm;codecs=opus",
+        mimeType: "audio/mp4",
       });
       mediaRecorderRef.current = mediaRecorder;
       audioChunksRef.current = [];
