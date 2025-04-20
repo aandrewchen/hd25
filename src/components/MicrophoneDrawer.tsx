@@ -17,7 +17,12 @@ export default function MicrophoneDrawer() {
       <DrawerTrigger className="flex justify-center z-10 -mb-15 w-full">
         <div className="flex flex-col gap-1">
           <div className="rounded-[6rem] bg-[#635BFF] w-[4rem] h-[4rem] flex flex-col gap-1 items-center justify-center">
-            <Image src="/NavBar/Translate.svg" alt="Translate" />
+            <Image
+              src="/NavBar/Translate.svg"
+              alt="Translate"
+              width={24}
+              height={24}
+            />
           </div>
           <p className="text-xs font-medium text-[#000000]">Translate</p>
         </div>
@@ -25,7 +30,7 @@ export default function MicrophoneDrawer() {
       <DrawerContent className="flex items-center justify-center min-h-full">
         <DrawerClose>
           <div className="fixed top-0 left-0 pt-5 pl-3">
-            <Image src="/Translate/X.svg" alt="X" />
+            <Image src="/Translate/X.svg" alt="X" width={24} height={24} />
           </div>
         </DrawerClose>
         <DrawerTitle className="text-[#FFFFFF]">
@@ -38,7 +43,12 @@ export default function MicrophoneDrawer() {
           >
             Speak in the Mic
           </button>
-          <Image src="/Translate/Microphone.svg" alt="Microphone" />
+          <Image
+            src="/Translate/Microphone.svg"
+            alt="Microphone"
+            width={24}
+            height={24}
+          />
         </div>
       </DrawerContent>
     </Drawer>
