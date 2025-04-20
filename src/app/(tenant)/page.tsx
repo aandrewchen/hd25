@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 export default function Home() {
   return (
     <div className="px-5 pt-10 relative h-1/2 flex flex-col">
@@ -7,9 +9,9 @@ export default function Home() {
       <div className="absolute inset-0 bg-[#FFFFFF] h-1/2 top-1/2"></div>
       <div className="relative z-10 mb-40">
         <div className="flex flex-col gap-5 text-[#FFFFFF] pb-8">
-          <p>You're living at</p>
+          <p>You are living at</p>
           <div className="flex gap-1">
-            <img src="/Home/SmallHome.svg" alt="Location" />
+            <Image src="/Home/SmallHome.svg" alt="Location" />
           </div>
         </div>
 
@@ -19,19 +21,19 @@ export default function Home() {
               Rent for Mar 23 - Apr 23, 2025
             </h2>
             <div className="gap-6 flex flex-col items-center">
-              <img src="/Home/TogglePay.svg" alt="Toggle" />
+              <Image src="/Home/TogglePay.svg" alt="Toggle" />
               <p className="text-5xl font-bold text-[#635BFF]">$1,203.00</p>
             </div>
             <div className="flex justify-between w-58 items-center">
               <p>
                 Due <span className="font-bold text-sm">Apr 23</span>
               </p>
-              <img src="/Home/Warning.svg" alt="Due in 4 Days" />
+              <Image src="/Home/Warning.svg" alt="Due in 4 Days" />
             </div>
           </div>
           <div className="flex flex-col gap-4">
             <div className="flex gap-2 items-center justify-center rounded-lg p-4 bg-[#635BFF]">
-              <img src="/Home/Pay.svg" alt="Pay" />
+              <Image src="/Home/Pay.svg" alt="Pay" />
               <p className="text-[#FFFFFF] font-medium">Pay Now</p>
             </div>
             <div className="flex justify-between"></div>

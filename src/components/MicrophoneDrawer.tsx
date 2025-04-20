@@ -7,6 +7,7 @@ import {
   DrawerClose,
   DrawerTitle,
 } from "@/components/ui/drawer";
+import Image from "next/image";
 
 export default function MicrophoneDrawer() {
   const startRecording = () => {};
@@ -16,7 +17,7 @@ export default function MicrophoneDrawer() {
       <DrawerTrigger className="flex justify-center z-10 -mb-15 w-full">
         <div className="flex flex-col gap-1">
           <div className="rounded-[6rem] bg-[#635BFF] w-[4rem] h-[4rem] flex flex-col gap-1 items-center justify-center">
-            <img src="/NavBar/Translate.svg" alt="Translate" />
+            <Image src="/NavBar/Translate.svg" alt="Translate" />
           </div>
           <p className="text-xs font-medium text-[#000000]">Translate</p>
         </div>
@@ -24,7 +25,7 @@ export default function MicrophoneDrawer() {
       <DrawerContent className="flex items-center justify-center min-h-full">
         <DrawerClose>
           <div className="fixed top-0 left-0 pt-5 pl-3">
-            <img src="/Translate/X.svg" alt="X" />
+            <Image src="/Translate/X.svg" alt="X" />
           </div>
         </DrawerClose>
         <DrawerTitle className="text-[#FFFFFF]">
@@ -37,7 +38,7 @@ export default function MicrophoneDrawer() {
           >
             Speak in the Mic
           </button>
-          <img src="/Translate/Microphone.svg" alt="Microphone" />
+          <Image src="/Translate/Microphone.svg" alt="Microphone" />
         </div>
       </DrawerContent>
     </Drawer>

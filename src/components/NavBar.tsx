@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import MicrophoneDrawer from "./MicrophoneDrawer";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function NavBar() {
   const pathname = usePathname();
@@ -16,9 +17,9 @@ export default function NavBar() {
           <div className="flex gap-10 items-center">
             <Link className="flex flex-col gap-1" href="/">
               {pathname.endsWith("/") ? (
-                <img src="/NavBar/HomeSelected.svg" alt="Home" />
+                <Image src="/NavBar/HomeSelected.svg" alt="Home" />
               ) : (
-                <img src="/NavBar/HomeNotSelected.svg" alt="Home" />
+                <Image src="/NavBar/HomeNotSelected.svg" alt="Home" />
               )}
 
               <p
@@ -34,9 +35,9 @@ export default function NavBar() {
 
             <Link className="flex flex-col gap-1" href="/chats">
               {pathname.endsWith("/chats") ? (
-                <img src="/NavBar/ChatsSelected.svg" alt="Chats" />
+                <Image src="/NavBar/ChatsSelected.svg" alt="Chats" />
               ) : (
-                <img src="/NavBar/ChatsNotSelected.svg" alt="Chats" />
+                <Image src="/NavBar/ChatsNotSelected.svg" alt="Chats" />
               )}
 
               <p
@@ -54,9 +55,9 @@ export default function NavBar() {
           <div className="flex gap-10 items-center">
             <Link className="flex flex-col gap-1" href="/inbox">
               {pathname.endsWith("/inbox") ? (
-                <img src="/NavBar/InboxSelected.svg" alt="Inbox" />
+                <Image src="/NavBar/InboxSelected.svg" alt="Inbox" />
               ) : (
-                <img src="/NavBar/InboxNotSelected.svg" alt="Inbox" />
+                <Image src="/NavBar/InboxNotSelected.svg" alt="Inbox" />
               )}
 
               <p
@@ -72,9 +73,9 @@ export default function NavBar() {
 
             <Link className="flex flex-col gap-1" href="/profile">
               {pathname.endsWith("/profile") ? (
-                <img src="/NavBar/Profile.svg" alt="Profile" />
+                <Image src="/NavBar/Profile.svg" alt="Profile" />
               ) : (
-                <img src="/NavBar/Profile.svg" alt="Profile" />
+                <Image src="/NavBar/Profile.svg" alt="Profile" />
               )}
 
               <p
