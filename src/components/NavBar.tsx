@@ -1,20 +1,14 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import MicrophoneDrawer from "./MicrophoneDrawer";
 
 export default function NavBar() {
   const pathname = usePathname();
 
   return (
     <div>
-      <div className="flex flex-col gap-1 items-center z-10 -mb-13 w-full">
-        <div className="rounded-[6rem] bg-[#635BFF] w-[4rem] h-[4rem] flex flex-col gap-1">
-          <img src="/NavBar/Translate.svg" alt="Translate" />
-        </div>
-        <p className="text-xs font-medium font-inter text-[#000000]">
-          Translate
-        </p>
-      </div>
+      <MicrophoneDrawer />
 
       <div className="z-0 bottom-0 bg-white border-t border-[#E5E7EB] pt-[0.65rem] px-[0.65rem] pb-[1.9rem]">
         <div className="flex justify-between">
@@ -29,8 +23,8 @@ export default function NavBar() {
               <p
                 className={
                   pathname.endsWith("/")
-                    ? "text-xs font-medium font-inter text-[#635BFF]"
-                    : "text-xs font-medium font-inter text-[#6B7280]"
+                    ? "text-xs font-medium  text-[#635BFF]"
+                    : "text-xs font-medium  text-[#6B7280]"
                 }
               >
                 Home
@@ -47,8 +41,8 @@ export default function NavBar() {
               <p
                 className={
                   pathname.endsWith("/chats")
-                    ? "text-xs font-medium font-inter text-[#635BFF]"
-                    : "text-xs font-medium font-inter text-[#6B7280]"
+                    ? "text-xs font-medium  text-[#635BFF]"
+                    : "text-xs font-medium  text-[#6B7280]"
                 }
               >
                 Chats
@@ -67,8 +61,8 @@ export default function NavBar() {
               <p
                 className={
                   pathname.endsWith("/inbox")
-                    ? "text-xs font-medium font-inter text-[#635BFF]"
-                    : "text-xs font-medium font-inter text-[#6B7280]"
+                    ? "text-xs font-medium  text-[#635BFF]"
+                    : "text-xs font-medium  text-[#6B7280]"
                 }
               >
                 Inbox
@@ -85,8 +79,8 @@ export default function NavBar() {
               <p
                 className={
                   pathname.endsWith("/profile")
-                    ? "text-xs font-medium font-inter text-[#635BFF]"
-                    : "text-xs font-medium font-inter text-[#6B7280]"
+                    ? "text-xs font-medium  text-[#635BFF]"
+                    : "text-xs font-medium  text-[#6B7280]"
                 }
               >
                 Profile
