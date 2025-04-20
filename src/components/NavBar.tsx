@@ -8,7 +8,7 @@ export default function NavBar() {
   const pathname = usePathname();
 
   return (
-    <div>
+    <div className="fixed bottom-0 w-full z-10">
       <MicrophoneDrawer />
 
       <div className="z-0 bottom-0 bg-white border-t border-[#E5E7EB] pt-[0.65rem] px-[0.65rem] pb-[1.9rem]">

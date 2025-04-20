@@ -23,8 +23,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.variable} min-h-screen flex flex-col`}>
         <ConvexClientProvider>
-          <main className="flex-1">{children}</main>
-          <NavBar />
+          <div className="flex flex-col">
+            <div className="z-0">{children}</div>
+
+            <NavBar />
+          </div>
         </ConvexClientProvider>
       </body>
     </html>
