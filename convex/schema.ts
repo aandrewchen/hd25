@@ -59,11 +59,11 @@ const schema = defineSchema({
   }),
   userInfo: defineTable({
     userId: v.id("users"), // Reference to the auth users table
+    image: v.optional(v.string()),
     name: v.optional(v.string()),
     phone: v.optional(v.string()),
     role: v.optional(v.string()), // "landlord" or "tenant"
     lastActive: v.optional(v.number()),
-    image: v.optional(v.string()),
   }).index("by_userId", ["userId"]),
 });
 

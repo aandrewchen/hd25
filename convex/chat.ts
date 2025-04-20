@@ -49,14 +49,21 @@ export const sendMessage = mutation({
 export const getMessages = query({
   args: {
     userId: v.id("users"),
+    recipientId: v.id("users"),
   },
   handler: async (ctx, args) => {
     const messages = await ctx.db
       .query("messages")
       .filter((q) =>
         q.or(
-          q.eq(q.field("sender"), args.userId),
-          q.eq(q.field("recipient"), args.userId)
+          q.and(
+            q.eq(q.field("sender"), args.userId),
+            q.eq(q.field("recipient"), args.recipientId)
+          ),
+          q.and(
+            q.eq(q.field("sender"), args.recipientId),
+            q.eq(q.field("recipient"), args.userId)
+          )
         )
       )
       .order("desc")
@@ -79,23 +86,6 @@ export const getChats = query({
         )
       )
       .collect();
-
-    const chatsWithUsers = await Promise.all(
-      chats.map(async (chat) => {
-        const otherUserId =
-          chat.user1 === args.userId ? chat.user2 : chat.user1;
-        const otherUser = await ctx.db.get(otherUserId);
-        return {
-          ...chat,
-          otherUser: {
-            _id: otherUser?._id,
-            name: otherUser?.name,
-            image: otherUser?.image,
-          },
-        };
-      })
-    );
-
-    return chatsWithUsers;
+    return chats;
   },
 });
