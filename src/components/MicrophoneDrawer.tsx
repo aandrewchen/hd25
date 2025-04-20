@@ -20,10 +20,8 @@ export default function MicrophoneDrawer() {
   });
 
   const [isRecording, setIsRecording] = useState(false);
-  const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
-  const audioPlayerRef = useRef<HTMLAudioElement | null>(null);
 
   const transcribeAudio = async (audioBlob: Blob) => {
     try {
@@ -85,10 +83,6 @@ export default function MicrophoneDrawer() {
           type: "audio/webm",
         });
         console.log("Recording completed, blob size:", audioBlob.size);
-
-        // Create a URL for the audio blob
-        const url = URL.createObjectURL(audioBlob);
-        setAudioUrl(url);
 
         // Start transcription
         await transcribeAudio(audioBlob);
