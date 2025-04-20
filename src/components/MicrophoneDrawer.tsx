@@ -129,12 +129,6 @@ export default function MicrophoneDrawer() {
     }
   };
 
-  const playRecording = () => {
-    if (audioUrl && audioPlayerRef.current) {
-      audioPlayerRef.current.play();
-    }
-  };
-
   return (
     <Drawer>
       <DrawerTrigger className="flex justify-center z-10 -mb-15 w-full">
