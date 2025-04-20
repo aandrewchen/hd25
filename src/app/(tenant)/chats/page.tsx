@@ -10,7 +10,7 @@ export default function Chats() {
   const chats = useQuery(api.chat.getChats, { userId: user?._id });
 
   return (
-    <div className="px-5 pt-10">
+    <div className="px-5 pt-6">
       <div className="flex gap-2 items-center pt-3 pb-3">
         <Image src="/Chats/ChatIcon.svg" alt="Chats" width={24} height={24} />
         <h1 className="text-2xl text-[#0D0D0D] font-semibold">Chats</h1>
@@ -39,7 +39,7 @@ export default function Chats() {
                   {chat.otherUser.name || "Anonymous"}
                 </div>
                 {chat.lastMessage && (
-                  <div className="text-sm text-gray-500">
+                  <div className="text-sm text-gray-500 break-words whitespace-pre-wrap max-w-[175px] line-clamp-2">
                     {chat.lastMessage}
                   </div>
                 )}
