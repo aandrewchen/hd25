@@ -15,7 +15,7 @@ export default function NavBar() {
     <div className="fixed bottom-0 w-full z-10">
       <MicrophoneDrawer />
 
-      <div className="z-0 bottom-0 bg-white border-t border-[#E5E7EB] pt-[0.65rem] px-[0.65rem] pb-[1.9rem]">
+      <div className="z-0 bottom-0 bg-white border-t border-[#E5E7EB] pt-[0.65rem] px-5 pb-[1.9rem]">
         <div className="flex justify-between">
           <div className="flex gap-10 items-center">
             <Link className="flex flex-col gap-1" href="/home">
