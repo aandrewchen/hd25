@@ -9,13 +9,42 @@ import {
 } from "@/components/ui/drawer";
 import Image from "next/image";
 import { useState, useRef } from "react";
+import { ElevenLabsClient } from "elevenlabs";
+import { useQuery } from "convex/react";
+import { api } from "../../convex/_generated/api";
 
 export default function MicrophoneDrawer() {
+  const user = useQuery(api.user.currentUser)!;
+  const userInfo = useQuery(api.user.getUser, {
+    userId: user?._id,
+  });
+
   const [isRecording, setIsRecording] = useState(false);
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
   const audioPlayerRef = useRef<HTMLAudioElement | null>(null);
+
+  const transcribeAudio = async (audioBlob: Blob) => {
+    try {
+      const client = new ElevenLabsClient({
+        apiKey: process.env.NEXT_PUBLIC_ELEVENLABS_API_KEY,
+      });
+
+      const result = await client.speechToText.convert({
+        file: audioBlob,
+        model_id: "scribe_v1",
+        tag_audio_events: true,
+        language_code: userInfo?.language || "eng",
+        diarize: true,
+      });
+
+      console.log("Transcription:", result);
+    } catch (error) {
+      console.error("Transcription error:", error);
+      alert("Error transcribing audio. Please try again.");
+    }
+  };
 
   const startRecording = async () => {
     try {
@@ -50,7 +79,7 @@ export default function MicrophoneDrawer() {
         console.error("MediaRecorder error:", event);
       };
 
-      mediaRecorder.onstop = () => {
+      mediaRecorder.onstop = async () => {
         console.log("MediaRecorder stopped");
         const audioBlob = new Blob(audioChunksRef.current, {
           type: "audio/webm",
@@ -60,6 +89,9 @@ export default function MicrophoneDrawer() {
         // Create a URL for the audio blob
         const url = URL.createObjectURL(audioBlob);
         setAudioUrl(url);
+
+        // Start transcription
+        await transcribeAudio(audioBlob);
 
         // Stop all tracks in the stream
         stream.getTracks().forEach((track) => {
@@ -145,18 +177,6 @@ export default function MicrophoneDrawer() {
             height={100}
             className={isRecording ? "animate-pulse" : ""}
           />
-          {audioUrl && !isRecording && (
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                playRecording();
-              }}
-              className="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600"
-            >
-              Play Recording
-            </button>
-          )}
-          <audio ref={audioPlayerRef} src={audioUrl || ""} />
         </div>
       </DrawerContent>
     </Drawer>

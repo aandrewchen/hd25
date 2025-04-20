@@ -63,6 +63,7 @@ const schema = defineSchema({
     name: v.optional(v.string()),
     phone: v.optional(v.string()),
     role: v.optional(v.string()), // "landlord" or "tenant"
+    language: v.optional(v.string()),
     lastActive: v.optional(v.number()),
   }).index("by_userId", ["userId"]),
 });
